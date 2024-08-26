@@ -71,6 +71,7 @@
   box-sizing: border-box;
   margin-top: 9px;
   cursor: move;
+  touch-action: none;
 }
 
 .TreeItem:hover {
