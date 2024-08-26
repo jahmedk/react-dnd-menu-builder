@@ -8,6 +8,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   childCount?: number;
   clone?: boolean;
   collapsed?: boolean;
+  collapsible?: boolean;
   depth: number;
   disableInteraction?: boolean;
   disableSelection?: boolean;
@@ -41,6 +42,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       indentationWidth,
       indicator,
       collapsed,
+      collapsible,
       onCollapse,
       onRemove,
       style,
@@ -108,7 +110,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
               {depth > 0 ? "sub item" : ""}
             </span>
           </span>
-          {!clone && onRemove && (
+          {collapsible && !clone && onRemove && (
             <Collapse open={open} handleOpen={() => setOpen(!open)} />
           )}
           {clone && childCount && childCount > 1 ? (
