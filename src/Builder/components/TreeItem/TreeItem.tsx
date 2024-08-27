@@ -108,7 +108,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
               {depth > 0 ? "sub item" : ""}
             </span>
           </span>
-          {props.collapsible && !clone && onRemove && (
+          {props?.otherfields?.collapsible && !clone && onRemove && (
             <Collapse open={open} handleOpen={() => setOpen(!open)} />
           )}
           {clone && childCount && childCount > 1 ? (
