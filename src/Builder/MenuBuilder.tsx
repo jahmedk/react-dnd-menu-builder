@@ -91,7 +91,6 @@ export function MenuBuilder({
   onDragEnd
 }: Props) {
   const items = generateItemChildren(itemsProps);
-  console.log('MenuBuilder', itemsProps, items);
   const indentationWidth = 50;
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
