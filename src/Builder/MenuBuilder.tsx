@@ -284,7 +284,6 @@ export function MenuBuilder({
         overId: activeId,
       });
     }
-    console.log("handleDragStart", activeId);
     if (onDragStart) {
       onDragStart(activeId);
     }
@@ -319,7 +318,6 @@ export function MenuBuilder({
       setItems(newItems);
     }
 
-    console.log("handleDragEnd");
     if (onDragEnd) {
       onDragEnd();
     }
