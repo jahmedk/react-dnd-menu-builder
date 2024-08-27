@@ -42,7 +42,6 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       indentationWidth,
       indicator,
       collapsed,
-      collapsible,
       onCollapse,
       onRemove,
       style,
@@ -61,7 +60,6 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       href: props?.otherfields?.href,
       name: props?.otherfields?.name,
     });
-
     return (
       <li
         className={classNames({
@@ -77,8 +75,8 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
           {
             ...(!clone
               ? {
-                  paddingLeft: `${indentationWidth * depth}px`,
-                }
+                paddingLeft: `${indentationWidth * depth}px`,
+              }
               : {}),
           } as React.CSSProperties
         }
@@ -110,7 +108,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
               {depth > 0 ? "sub item" : ""}
             </span>
           </span>
-          {collapsible && !clone && onRemove && (
+          {props.collapsible && !clone && onRemove && (
             <Collapse open={open} handleOpen={() => setOpen(!open)} />
           )}
           {clone && childCount && childCount > 1 ? (
