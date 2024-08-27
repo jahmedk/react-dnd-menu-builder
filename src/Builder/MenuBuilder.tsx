@@ -79,14 +79,19 @@ interface Props {
   style?: "bordered" | "shadow";
   items: TreeItems;
   setItems(items: ((items: any) => TreeItem[]) | TreeItems): void;
+  onDragStart?(activeId: any): void;
+  onDragEnd?(): void;
 }
 
 export function MenuBuilder({
   style = "bordered",
   items: itemsProps,
   setItems,
+  onDragStart,
+  onDragEnd
 }: Props) {
   const items = generateItemChildren(itemsProps);
+  console.log('MenuBuilder', itemsProps, items);
   const indentationWidth = 50;
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
@@ -108,6 +113,8 @@ export function MenuBuilder({
         item.id = data.id;
         item.name = data.name;
         item.href = data.href;
+        item.collapsed = data.collapsed;
+        item.collapsible = data.collapsible;
       }
 
       if (item?.children?.length) {
@@ -136,12 +143,12 @@ export function MenuBuilder({
   const projected =
     activeId && overId
       ? getProjection(
-          flattenedItems,
-          activeId,
-          overId,
-          offsetLeft,
-          indentationWidth
-        )
+        flattenedItems,
+        activeId,
+        overId,
+        offsetLeft,
+        indentationWidth
+      )
       : null;
   const sensorContext: SensorContext = useRef({
     items: flattenedItems,
@@ -277,7 +284,10 @@ export function MenuBuilder({
         overId: activeId,
       });
     }
-
+    console.log("handleDragStart", activeId);
+    if (onDragStart) {
+      onDragStart(activeId);
+    }
     document.body.style.setProperty("cursor", "grabbing");
   }
 
@@ -307,6 +317,11 @@ export function MenuBuilder({
       const newItems = buildTree(sortedItems);
 
       setItems(newItems);
+    }
+
+    console.log("handleDragEnd");
+    if (onDragEnd) {
+      onDragEnd();
     }
   }
 
