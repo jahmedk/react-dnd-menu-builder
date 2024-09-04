@@ -22,6 +22,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   wrapperRef?(node: HTMLLIElement): void;
   childs?: TreeItems;
   show?: string;
+  deleteOnTitle?: any;
   updateitem?: (
     id: UniqueIdentifier,
     data: Omit<TreeItemType, "children">
@@ -48,6 +49,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       value,
       updateitem,
       wrapperRef,
+      deleteOnTitle,
       ...props
     },
     ref
@@ -110,6 +112,22 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
           </span>
           {props?.otherfields?.collapsible && !clone && onRemove && (
             <Collapse open={open} handleOpen={() => setOpen(!open)} />
+          )}
+          {deleteOnTitle && onRemove && (
+            <button
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+              onClick={(e) => {
+                console.log("onDelete");
+                e.stopPropagation();
+                setOpen(false);
+                onRemove();
+              }}
+            >
+              {deleteOnTitle}
+            </button>
           )}
           {clone && childCount && childCount > 1 ? (
             <div className={"Count"}>
