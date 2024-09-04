@@ -81,6 +81,7 @@ interface Props {
   setItems(items: ((items: any) => TreeItem[]) | TreeItems): void;
   onDragStart?(activeId: any): void;
   onDragEnd?(): void;
+  deleteOnTitle: any;
 }
 
 export function MenuBuilder({
@@ -88,7 +89,8 @@ export function MenuBuilder({
   items: itemsProps,
   setItems,
   onDragStart,
-  onDragEnd
+  onDragEnd,
+  deleteOnTitle
 }: Props) {
   const items = generateItemChildren(itemsProps);
   const indentationWidth = 50;
@@ -242,6 +244,7 @@ export function MenuBuilder({
                 onCollapse={undefined}
                 childCount={getChildCount(items, activeId) + 1}
                 onRemove={() => handleRemove(id)}
+                deleteOnTitle={deleteOnTitle}
               />
             )
           )}
