@@ -146,7 +146,7 @@ export function removeItem(items: TreeItems, id: UniqueIdentifier) {
       continue;
     }
 
-    if (item.children.length) {
+    if (item.children && item.children.length) {
       item.children = removeItem(item.children, id);
     }
 
